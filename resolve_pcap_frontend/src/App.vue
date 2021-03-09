@@ -20,7 +20,16 @@
 </template>
 
 <script>
-	
+	document.body.addEventListener('click',function(e){
+		if(e.target.className=='el-upload-list__item-name'){
+			let id=e.target.childNodes[1].data.trim();
+			console.log(id);
+			e.stopPropagation();
+			document.getElementById(id).scrollIntoView();
+			return false; 
+		}
+		
+	},true);
 	import mychart from './mychart.vue'
 export default {
 	components: {
@@ -51,6 +60,10 @@ export default {
 </script>
 
 <style>
+	.upload-demo{
+		position: fixed;
+		top:30px;
+	}
 html,body,#app,#main{
 	width:100%;
 	height:100%;

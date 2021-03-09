@@ -45,10 +45,14 @@ def resolve_pcap(f):
                 if dst not in nodes:
                     nodes[dst]={'name':dst,'value': mac_addr(eth.dst)}
                 if (f'{src},{dst}' not in links) and (f'{dst},{src}' not in links): # and (f'{dst},{src}' not in links)
+                    try:
+                        ttl=str(ip.ttl)
+                    except Exception as e:
+                        ttl=''
                     links[f'{src},{dst}']={
                         'source': src,
                         'target': dst,
-                        #'value':'hello',
+                        'value':f'ttl: {ttl}',
                        #'name': 'hello',
                        # 'des': f'{src}-{dst}'
 
