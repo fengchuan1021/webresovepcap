@@ -7,7 +7,7 @@
 		  multiple
 		  :on-success='add_chartdata'
 		  :on-remove="remove_file"
-		  action="/api/uploadpcapfile/">
+		  :action="DOMAIN +'/api/uploadpcapfile/'">
 		  <i class="el-icon-upload"></i>
 		  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 		  <div class="el-upload__tip" slot="tip">只能上传pcap文件</div>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+	
 	document.body.addEventListener('click',function(e){
 		if(e.target.className=='el-upload-list__item-name'){
 			let id=e.target.childNodes[1].data.trim();
@@ -36,7 +37,7 @@ export default {
 	           mychart
 	        },
 	data(){
-		return {myhart:null,datas:[]}
+		return {myhart:null,datas:[],DOMAIN:"http://192.168.1.36:8000"}
 	},
 
   methods: {
