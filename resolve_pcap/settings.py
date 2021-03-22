@@ -76,9 +76,13 @@ WSGI_APPLICATION = 'resolve_pcap.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'topo_p2p',
+        'USER': 'fengchuan',
+        'PASSWORD': 'bOelm#Fb2aX',
+        'HOST': '192.168.1.36',
+        'PORT': 3306,
+    },
 }
 
 

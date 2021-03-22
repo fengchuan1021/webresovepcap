@@ -8,10 +8,12 @@
     "build": "rimraf dist && webpack -p --progress --hide-modules"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "babel-preset-es2015": "^6.24.1",
     "echarts": "^5.0.2",
     "element-ui": "^2.3.4",
-    "vue": "^2.5.16"
+    "vue": "^2.5.16",
+    "vue-axios": "^3.2.4"
   },
   "engines": {
     "node": ">=6"

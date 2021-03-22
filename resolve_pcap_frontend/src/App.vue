@@ -1,20 +1,19 @@
 <template>
   <div id="app">
-    <div style='width: 20%;float:left'>
+    <div style='width: 15%;float:left;height: 100%;'>
 		<el-upload
 		  class="upload-demo"
 		  drag
-		  multiple
 		  :on-success='add_chartdata'
 		  :on-remove="remove_file"
-		  :action="DOMAIN +'/api/uploadpcapfile/'">
+		  :action="this.DOMAIN +'/api/uploadpcapfile/'">
 		  <i class="el-icon-upload"></i>
 		  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 		  <div class="el-upload__tip" slot="tip">只能上传pcap文件</div>
 		</el-upload>
 	</div>
     <div id='main'>
-      <mychart v-for='(item,key) of datas' :item='item'></mychart>
+      <mychart v-for='(item,key) of datas' :item='item' :domain="DOMAIN"></mychart>
     </div>
   </div>
 </template>
@@ -37,9 +36,15 @@ export default {
 	           mychart
 	        },
 	data(){
-		return {myhart:null,datas:[],DOMAIN:"http://192.168.1.36:8000"}
+		return {myhart:null,datas:[],DOMAIN:"http://127.0.0.1:8000"}
 	},
-
+mounted() {
+	this.axios.get(this.DOMAIN+'/api/gettestdata/9/').then(ret=>{
+		if(ret.status)
+		this.datas.push(ret.data)
+		
+	});
+},
   methods: {
 	  remove_file(file,FileList){
 		  console.log(file);
@@ -70,13 +75,14 @@ html,body,#app,#main{
 	height:100%;
 }
 #main{
-	width: 80%;
+	width: 85%;
 	float: right;
 }
 .chartcontainer{
 	min-height: 800px;
 	width:100%;
 }
+.el-upload-dragger{width:230px;}
 #app {
   font-family: Helvetica, sans-serif;
   text-align: center;
