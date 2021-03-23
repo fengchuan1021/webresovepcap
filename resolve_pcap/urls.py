@@ -23,4 +23,5 @@ urlpatterns = [
     path('api/getpackages/<int:fileid>/<str:proto>/<str:source>/<str:target>/',views.getpackages),
     path('api/gettestdata/<int:fileid>/', views.gettestdata),
     path('api/getdetail/<int:fileid>/<int:ind>/',views.getdetail),
+    path('api/getpackagesbaseonsrc/<int:fileid>/<str:source>/',views.getpackagesbaseonsrc),
 ]
