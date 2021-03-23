@@ -19,8 +19,8 @@
       	</div>
       	
       	
-      	<div style='width:1%;float:left;height: 100%;min-height: 800px;'>
-      		<i :class="showchart ? 'el-icon-caret-left' : 'el-icon-caret-right'" style="z-index: 999;" @click="toggle" id='togglei'></i>
+      	<div id='sepdiv' style='width:1%;float:left;height: 100%;min-height: 800px;' >
+      		<i :class="showchart ? 'el-icon-caret-left' : 'el-icon-caret-right'" style="z-index: 999;" @click="toggle"  id='togglei'></i>
       	</div>
       	
       	<div id='tablediv' :style="showchart ? 'width:20%' : 'width:50%'">
@@ -211,4 +211,15 @@ html,body,#app,#main{
 		.el-tree-node__content{
 			height: auto;
 		}
+	#sepdiv{	
+		    border-left: 1px solid #eaeefb;
+			border-right: 1px solid #eaeefb;
+		    box-sizing: border-box;
+		    background-color: #fff;
+
+		    text-align: center;
+	
+		    color: #d3dce6;
+		    cursor: pointer;
+			}
 </style>
