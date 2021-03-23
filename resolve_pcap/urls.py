@@ -21,7 +21,7 @@ urlpatterns = [
     path('',TemplateView.as_view(template_name='index.html')),
     path('api/uploadpcapfile/', views.resove_pcapfile),
     path('api/getpackages/<int:fileid>/<str:proto>/<str:source>/<str:target>/',views.getpackages),
-    path('api/gettestdata/<int:fileid>/', views.gettestdata),
+    path('api/getdata/<int:fileid>/<str:proto>/', views.getdataview),
     path('api/getdetail/<int:fileid>/<int:ind>/',views.getdetail),
     path('api/getpackagesbaseonsrc/<int:fileid>/<str:source>/',views.getpackagesbaseonsrc),
 ]

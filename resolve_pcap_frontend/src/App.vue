@@ -13,8 +13,15 @@
 		</el-upload>
 	</div>
     <div id='main' :style="showchart ? 'width:85%' : 'width:100%'">
+		
       <div :id="item.id" class='chartcontainer'>
       	<div  id='chartdiv' :style="showchart ? 'width:79%' : 'width:49%'">
+			<div>
+				  <el-radio-group v-model="proto" @change='getdata'>
+					  <el-radio label="all">all</el-radio>
+				    <el-radio :label="row.name" v-for="row in item.categories">{{row.name}}</el-radio>
+				  </el-radio-group>
+			</div>
       		<div :id="'chart'+item.id"  style="width: 100%;min-height: 800px;height: 100%;"></div>
       	</div>
       	
@@ -81,34 +88,12 @@
 	import * as echarts from 'echarts';
 export default {
 	data(){
-		return {item:[],domain:"http://127.0.0.1:8000",tableData:[],showchart:true,detaildata:[],myChart:null,myfileList:[ {name: '1.pcap', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]}
+		return {item:{categories:[{'name':'all'}],id:19},domain:"http://127.0.0.1:8000",tableData:[],showchart:true,detaildata:[],myChart:null,myfileList:[ {name: '1.pcap', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],'proto':'all'}
 	},
 mounted() {
 	this.myChart = echarts.init(document.getElementById('chart'+this.item.id));
-	this.axios.get(this.domain+'/api/gettestdata/19/').then(ret=>{
-		this.item=ret.data;
-		console.log(this.item);
-		this.myChart.setOption({
-		    tooltip: {},
-			legend:[{
-				data:this.item.categories.map(function(e){return e.name})
-			}],
-		    series: [{
-		       
-		        type: 'graph',
-				layout: 'force',
-				roam: true,
-				data: this.item.nodes,
-				links: this.item.links,
-				categories: this.item.categories,
-		        force: {
-		                            repulsion: 100,layoutAnimation : true
-		                        }
-		    }]
-		});
-		
-	});
-	
+
+	this.getdata();
 	
 	
 
@@ -130,8 +115,35 @@ mounted() {
 		}
 		
 	});
+	
+
 },
   methods: {
+	  getdata(){
+		
+		  this.axios.get(`${this.domain}/api/getdata/${this.item.id}/${this.proto}/`).then(ret=>{
+		  	this.item=ret.data;
+		  	console.log(this.item);
+		  	this.myChart.setOption({
+		  	    tooltip: {},
+		  		legend:[],
+		  	    series: [{
+		  	       
+		  	        type: 'graph',
+		  			layout: 'force',
+		  			roam: true,
+		  			data: this.item.nodes,
+		  			links: this.item.links,
+		  			categories: this.item.categories,
+		  	        force: {
+		  	                            repulsion: 100,layoutAnimation : true
+		  	                        }
+		  	    }]
+		  	});
+		  	
+		  });
+	  },
+	  
 			toggle(){
 				this.showchart=!this.showchart;
 				
