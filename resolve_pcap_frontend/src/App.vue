@@ -5,6 +5,7 @@
 		  class="upload-demo"
 		  drag
 		  :on-success='add_chartdata'
+		  :file-list="myfileList"
 		  :action="this.domain +'/api/uploadpcapfile/'">
 		  <i class="el-icon-upload"></i>
 		  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -80,7 +81,7 @@
 	import * as echarts from 'echarts';
 export default {
 	data(){
-		return {myhart:null,item:[],domain:"http://127.0.0.1:8000",tableData:[],showchart:true,detaildata:[],myChart:null}
+		return {item:[],domain:"http://127.0.0.1:8000",tableData:[],showchart:true,detaildata:[],myChart:null,myfileList:[ {name: '1.pcap', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]}
 	},
 mounted() {
 	this.myChart = echarts.init(document.getElementById('chart'+this.item.id));
@@ -163,6 +164,9 @@ mounted() {
 		                        }
 		    }]
 		});
+		this.myfileList=[];
+		this.myfileList.push(file);
+		console.log(fileList);
 		}
     }
   }
